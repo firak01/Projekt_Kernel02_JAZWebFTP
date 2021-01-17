@@ -376,8 +376,9 @@ private boolean uploadFile_(File objFile, String sDirTargetIn) throws ExceptionZ
 			 	String localFile = objFile.getAbsolutePath();
 			 	
 			 	//20210115 Hier auch ein FileEasyZZZ.join... machen, aber mit "/" als Verzeichnistrenner.
-			 	//TODOGOON sicherstellen, das ein führender "/" vorangestellt ist.
-			 	String remoteFile = FileEasyZZZ.joinFilePathName(sDirTarget, objFile.getName(), this.getDirectorySeparatorRemote());
+			 	//Sistellen, das ein führender "/" vorangestellt ist.
+			 	//ABER: Der lokale Root-Eintrag (z.B. in Eclipse 'src' darf nicht vorangestellt werden, darum 'remote'=true.
+			 	String remoteFile = FileEasyZZZ.joinFilePathName(sDirTarget, objFile.getName(), this.getDirectorySeparatorRemote(), true);
 			 	objChannel.put(localFile, remoteFile);
 			    objChannel.exit();
 			    bReturn = true;    						   

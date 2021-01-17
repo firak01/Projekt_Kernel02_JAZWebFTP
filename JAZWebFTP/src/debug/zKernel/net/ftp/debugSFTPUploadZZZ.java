@@ -67,7 +67,12 @@ public class debugSFTPUploadZZZ {
   
 				//5. Login
 			btemp = objFTP.makeConnection(sServer, sUser, sPassword);
-			if (btemp==true) System.out.println("Connection - successfull, now transfering file");
+			if (btemp==true) {
+				System.out.println("Connection - successfull, now transfering file");
+			}else {
+				System.out.println("Connection - NOT successfull, end program");
+				break main;
+			}
 			
 			//6. Datei ermitteln und �bertragen
 			//TODO Mit eine @Z-Formel in der Konfiguration DIESES Programms auslesen, die auf den wert in der konfiguration eines anderen Programms hinweist.
@@ -99,7 +104,7 @@ TargetFile=testpage.html
 				//Dateiname bleibt gleich, also nicht extra auslesen.
 				//IKernelConfigSectionEntryZZZ entryFileTarget = objKernel.getParameterByProgramAlias(objFileIniIPConfig, "FTPModul","TargetFile");
 				//String sFileTarget = entryFileTarget.getValue();				
-				String sFileTargetTotal = FileEasyZZZ.joinFilePathName(sDirTarget, sFile, objFTP.getDirectorySeparatorRemote());;
+				String sFileTargetTotal = FileEasyZZZ.joinFilePathName(sDirTarget, sFile, objFTP.getDirectorySeparatorRemote(), true); //Merke: Bei dem Remote-Pfad soll sichergestellt sein, dass kein src-Root Ordner voranagestellt ist.
 				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": FileTargetName: "+sFileTargetTotal);
 																
 				btemp = objFTP.uploadFile(objFile, sDirTarget);
