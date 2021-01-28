@@ -65,7 +65,7 @@ public class debugSFTPUploadZZZ {
 			
 			System.out.println("Page Transfer - Login detail read from file: "+sServer + " ("+sUser+" - "+sPassword+")");
   
-				//5. Login
+			//5. Login
 			btemp = objFTP.makeConnection(sServer, sUser, sPassword);
 			if (btemp==true) {
 				System.out.println("Connection - successfull, now transfering file");
