@@ -37,12 +37,30 @@
   </build>
   <dependencies>
   	<dependency>
+  		<!-- FGL 20210204: java.lang.NoClassDefFoundError wenn man dies aus einem anderem Projekt ausführt
+  		     scope provided weglassen soll es richten.
+  		     https://stackoverflow.com/questions/12811392/java-classnotfoundexception-with-maven-dependency
+  		 -->
+<!--   		<scope>provided</scope>  	 -->
+		<!--  Merke: java.lang.NoClassDefFoundError deutet darauf hin, dass die Klasse zur Laufzeit nicht gefunden wird.
+		      Dies lässt sich dadurch beheben, dass im Eclipse Projekt die Reihenfolge stimmt,
+		      d.h. in diesem konkreten Fall muss das JAZWebFTP Projekt VOR dem JAZKernelUI Projekt stehen,
+		      damit die Klassen in einem "Button click" zur Verfügung stehen -->
   		<groupId>com.hierynomus</groupId>
   		<artifactId>sshj</artifactId>
   		<version>0.30.0</version>
   	</dependency>
   	
   	<dependency>
+  	  	<!-- FGL 20210204: java.lang.NoClassDefFoundError wenn man dies aus einem anderem Projekt ausführt
+  		     scope provided weglassen soll es richten.
+  		     https://stackoverflow.com/questions/12811392/java-classnotfoundexception-with-maven-dependency
+  		 -->
+<!--   		<scope>provided</scope>  		 -->
+		<!--  Merke: java.lang.NoClassDefFoundError deutet darauf hin, dass die Klasse zur Laufzeit nicht gefunden wird.
+		      Dies lässt sich dadurch beheben, dass im Eclipse Projekt die Reihenfolge stimmt,
+		      d.h. in diesem konkreten Fall muss das JAZWebFTP Projekt VOR dem JAZKernelUI Projekt stehen,
+		      damit die Klassen in einem "Button click" zur Verfügung stehen -->
   		<groupId>com.jcraft</groupId>
     	<artifactId>jsch</artifactId>
     	<version>0.1.55</version>
