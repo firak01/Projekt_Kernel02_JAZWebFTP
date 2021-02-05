@@ -49,7 +49,7 @@ public class KernelSFTPZZZ extends KernelUseObjectZZZ {
 	private int iPort=22;
 	
 	private char cDirectorySeparatorLocal = StringZZZ.string2Char(FileEasyZZZ.sDIRECTORY_SEPARATOR);
-	private char cDirectorySeparatorRemote = StringZZZ.string2Char(FileEasyZZZ.sDIRECTORY_SEPARATOR);
+	private char cDirectorySeparatorRemote = StringZZZ.string2Char(FileEasyZZZ.sDIRECTORY_SEPARATOR_UNIX);
 	
 	public KernelSFTPZZZ(IKernelZZZ objKernel, IKernelLogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel);
