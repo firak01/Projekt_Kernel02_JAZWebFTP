@@ -395,6 +395,7 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			 	String sRemoteFilePathTotal = FileEasyZZZ.joinFilePathName(sDirTarget, sFileNameTarget, this.getDirectorySeparatorRemote(), true);
 			 	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": sRemoteFilePathTotal='"+sRemoteFilePathTotal+"'");
 				
+			 	TODOGOON; //20210206
 			 	//ACHTUNG: Damit werden keine Verzeichnisse angelegt!!!  20210206: Das könnte zu einem Problem werden.
 			 	/* Loesungsansatz: eine Methode wie in FileEasyZZZ.makeDirectoryForFile verwendetem java.io.File.mkdirs()
 			 	 * 
