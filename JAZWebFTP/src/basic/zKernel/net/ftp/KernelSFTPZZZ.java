@@ -313,16 +313,27 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 	return bReturn;
 }//end method 'ConnctionMake_"
 
+
 /**
  * Loads a file by FTP to the server. An established connection is necessary.
  * @param objFile, the sourceFile-Object
  * @param sFileTarget, if null or the empty String, the filename of the sourceFile-Object will be used
  * @return boolean, indicating the success of the method
  */
-public boolean uploadFile(File objFile, String sFileTarget) throws ExceptionZZZ{
-	return uploadFile_(objFile, sFileTarget);	
+public boolean uploadFile(File objFile, String sFilePathTarget, String sFileNameTarget) throws ExceptionZZZ{
+	return uploadFile_(objFile, sFilePathTarget, sFileNameTarget);	
 }
-private boolean uploadFile_(File objFile, String sDirTargetIn) throws ExceptionZZZ{
+
+/**
+ * Loads a file by FTP to the server. An established connection is necessary.
+ * @param objFile, the sourceFile-Object
+ * @param sFileTarget, if null or the empty String, the filename of the sourceFile-Object will be used
+ * @return boolean, indicating the success of the method
+ */
+public boolean uploadFile(File objFile, String sFilePathTarget) throws ExceptionZZZ{
+	return uploadFile_(objFile, sFilePathTarget, "");	
+}
+private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameTargetIn) throws ExceptionZZZ{
 	boolean bReturn = false;
 		main:{
 			String stemp; String sLog;
@@ -340,6 +351,13 @@ private boolean uploadFile_(File objFile, String sDirTargetIn) throws ExceptionZ
 				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
+			}
+			
+			String sFileNameTarget;
+			if(StringZZZ.isEmpty(sFileNameTargetIn)) {
+				sFileNameTarget = objFile.getName();
+			}else {
+				sFileNameTarget = sFileNameTargetIn;
 			}
 			
 			if(FileEasyZZZ.isDirectory(objFile)) {
@@ -368,18 +386,33 @@ private boolean uploadFile_(File objFile, String sDirTargetIn) throws ExceptionZ
 			
 			 ChannelSftp objChannel = (ChannelSftp) objSession.openChannel(KernelSFTPZZZ.sPROTOCOL);
 			 objChannel.connect();
-			 
-			    //String localFile = "src/file/debugTestContent.txt";
-			    //String remoteDir = "/home/www/debug/";
-			    //objChannel.put(localFile, remoteDir + "debugTestContent.txt");
-			 
+
 			 	String localFile = objFile.getAbsolutePath();
 			 	
-			 	//20210115 Hier auch ein FileEasyZZZ.join... machen, aber mit "/" als Verzeichnistrenner.
-			 	//Sistellen, das ein führender "/" vorangestellt ist.
+			 	//Hier auch ein FileEasyZZZ.join... machen, aber mit "/" als Verzeichnistrenner.
+			 	//In der Konfiguration ggfs. sicherstellen, das ein führender "/" vorangestellt ist.
 			 	//ABER: Der lokale Root-Eintrag (z.B. in Eclipse 'src' darf nicht vorangestellt werden, darum 'remote'=true.
-			 	String remoteFile = FileEasyZZZ.joinFilePathName(sDirTarget, objFile.getName(), this.getDirectorySeparatorRemote(), true);
-			 	objChannel.put(localFile, remoteFile);
+			 	String sRemoteFilePathTotal = FileEasyZZZ.joinFilePathName(sDirTarget, sFileNameTarget, this.getDirectorySeparatorRemote(), true);
+			 	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": sRemoteFilePathTotal='"+sRemoteFilePathTotal+"'");
+				
+			 	//ACHTUNG: Damit werden keine Verzeichnisse angelegt!!!  20210206: Das könnte zu einem Problem werden.
+			 	/* Loesungsansatz: eine Methode wie in FileEasyZZZ.makeDirectoryForFile verwendetem java.io.File.mkdirs()
+			 	 * 
+			 	 https://stackoverflow.com/questions/12838767/use-jsch-to-put-a-file-to-the-remote-directory-and-if-the-directory-does-not-exi
+			 	 String[] folders = path.split( "/" );
+for ( String folder : folders ) {
+    if ( folder.length() > 0 ) {
+        try {
+            sftp.cd( folder );
+        }
+        catch ( SftpException e ) {
+            sftp.mkdir( folder );
+            sftp.cd( folder );
+        }
+    }
+}
+			 	 */
+			 	objChannel.put(localFile, sRemoteFilePathTotal);
 			    objChannel.exit();
 			    bReturn = true;    						   
 			} catch (JSchException je) {
