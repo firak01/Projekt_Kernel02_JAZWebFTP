@@ -24,6 +24,7 @@ import com.jcraft.jsch.SftpException;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
@@ -46,6 +47,7 @@ public class KernelSFTPZZZ extends KernelUseObjectZZZ {
 	private String sServer=new String("");
 	private String sUser=new String("");
 	private String sPassword=new String("");
+	private String sRootPath=new String("");
 	private int iPort=22;
 	
 	private char cDirectorySeparatorLocal = StringZZZ.string2Char(FileEasyZZZ.sDIRECTORY_SEPARATOR);
@@ -392,14 +394,20 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			 	//Hier auch ein FileEasyZZZ.join... machen, aber mit "/" als Verzeichnistrenner.
 			 	//In der Konfiguration ggfs. sicherstellen, das ein führender "/" vorangestellt ist.
 			 	//ABER: Der lokale Root-Eintrag (z.B. in Eclipse 'src' darf nicht vorangestellt werden, darum 'remote'=true.
-			 	String sRemoteFilePathTotal = FileEasyZZZ.joinFilePathName(sDirTarget, sFileNameTarget, this.getDirectorySeparatorRemote(), true);
+			 	String sRemoteRoot = this.getRootPath();
+			 	String sRemoteDirPathTotal = FileEasyZZZ.joinFilePathName(sRemoteRoot, sDirTarget, this.getDirectorySeparatorRemote(), true);
+			 	String sRemoteFilePathTotal = FileEasyZZZ.joinFilePathName(sRemoteDirPathTotal, sFileNameTarget, this.getDirectorySeparatorRemote(), true);
 			 	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": sRemoteFilePathTotal='"+sRemoteFilePathTotal+"'");
 				
-			 	TODOGOON; //20210206
+			 	
+			 	
+			 	//TODOGOON; //20210206
 			 	//ACHTUNG: Damit werden keine Verzeichnisse angelegt!!!  20210206: Das könnte zu einem Problem werden.
 			 	/* Loesungsansatz: eine Methode wie in FileEasyZZZ.makeDirectoryForFile verwendetem java.io.File.mkdirs()
 			 	 * 
 			 	 https://stackoverflow.com/questions/12838767/use-jsch-to-put-a-file-to-the-remote-directory-and-if-the-directory-does-not-exi
+			 	 where sftp is the ChannelSftp object.
+			 	 
 			 	 String[] folders = path.split( "/" );
 for ( String folder : folders ) {
     if ( folder.length() > 0 ) {
@@ -413,6 +421,8 @@ for ( String folder : folders ) {
     }
 }
 			 	 */
+			 	this.mkdirs(sDirTarget); //Das sind Pfade unterhalb des Server-RootPfads
+			 	
 			 	objChannel.put(localFile, sRemoteFilePathTotal);
 			    objChannel.exit();
 			    bReturn = true;    						   
@@ -468,6 +478,29 @@ for ( String folder : folders ) {
 	/**
 	 * @return String
 	 */
+	public String getRootPath() {
+		return this.sRootPath;
+	}
+
+
+	/**
+	 * @param string
+	 */
+	public void setRootPath(String sRootPath) {
+		this.sRootPath = sRootPath;
+	}
+	
+	public int getPort() {
+		return this.iPort;
+	}
+	
+	public void setPort(int iPort) {
+		this.iPort = iPort;
+	}
+	
+	/**
+	 * @return String
+	 */
 	public String getServer() {
 		return sServer;
 	}
@@ -478,14 +511,6 @@ for ( String folder : folders ) {
 	 */
 	public void setServer(String string) {
 		sServer = string;
-	}
-	
-	public int getPort() {
-		return this.iPort;
-	}
-	
-	public void setPort(int iPort) {
-		this.iPort = iPort;
 	}
 
 	public char getDirectorySeparatorRemote() {
@@ -500,6 +525,73 @@ for ( String folder : folders ) {
 	}
 	public void setDirectorySeparatorLocal(char c) {
 		this.cDirectorySeparatorLocal = c;
+	}
+	
+	/** Erstelle alle Verzeichnisse auf dem FTP Server.
+	 *  Zu beachten, ist, dass ggfs. auf den Verzeichnissen keine Rechte existieren, dann würden Sie ebenfalls neu erstellt.
+	 *  Beispiel:
+	 *  Das ist z.B. für den Server-Root-Pfad der Fall. z.B. T-Online: /home/www/
+	 *  Wenn man nun einen Pfad /home/www/bla/bub übergibt, wird letztendlich folgender Verzeichnispfad erstellt:
+	 *  /home/www/home/www/bla/bub
+	 * @param sDirectoryPath
+	 * @return
+	 * @author Fritz Lindhauer, 06.02.2021, 17:19:56
+	 * siehe: https://stackoverflow.com/questions/12838767/use-jsch-to-put-a-file-to-the-remote-directory-and-if-the-directory-does-not-exi
+	 */
+	public boolean mkdirs(String sDirectoryPath) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			String stemp; String sLog;
+			try {
+				if(StringZZZ.isEmpty(sDirectoryPath)) break main;
+				
+				if(FileEasyZZZ.isPathAbsolut(sDirectoryPath)) {
+					sLog = "Pfad ist absolut. Solch ein Pfad kann auf dem FTP Server nicht erstellt werden '" + sDirectoryPath + "'.";
+					System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": "+sLog);
+					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
+					throw ez;	
+				}
+				
+				Session objSession = this.getSession();
+				if(objSession==null){
+					stemp = "SessionObject'";				
+					sLog = "Missing: '" + stemp + "'";
+					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
+					throw ez;	
+				}
+				
+				 ChannelSftp objChannel = (ChannelSftp) objSession.openChannel(KernelSFTPZZZ.sPROTOCOL);
+				 objChannel.connect();
+				
+				String[] folders = sDirectoryPath.split( CharZZZ.toString(this.cDirectorySeparatorRemote) );
+				for ( String folder : folders ) {
+						if ( folder.length() > 0 ) {
+							try {
+								objChannel.cd(folder);
+								}
+							catch ( SftpException e ) {
+								try {
+									objChannel.mkdir( folder );
+									objChannel.cd( folder );
+								} catch (SftpException sftpe) {
+									sLog="Unable to create folder '" + folder + "' for total Path '"+ sDirectoryPath + "'";
+									ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName(), sftpe); 
+									throw ez;
+								}
+								
+							}
+						}
+				}	
+				
+				bReturn = true;
+			} catch (JSchException jsche) {
+				sLog="Error creating folders for total Path '"+ sDirectoryPath + "'";
+				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName(), jsche); 
+				throw ez;
+			}
+		}
+		return bReturn;
 	}
 
 }
