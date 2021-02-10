@@ -398,29 +398,6 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			 	String sRemoteDirPathTotal = FileEasyZZZ.joinFilePathName(sRemoteRoot, sDirTarget, this.getDirectorySeparatorRemote(), true);
 			 	String sRemoteFilePathTotal = FileEasyZZZ.joinFilePathName(sRemoteDirPathTotal, sFileNameTarget, this.getDirectorySeparatorRemote(), true);
 			 	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": sRemoteFilePathTotal='"+sRemoteFilePathTotal+"'");
-				
-			 	
-			 	
-			 	//TODOGOON; //20210206
-			 	//ACHTUNG: Damit werden keine Verzeichnisse angelegt!!!  20210206: Das könnte zu einem Problem werden.
-			 	/* Loesungsansatz: eine Methode wie in FileEasyZZZ.makeDirectoryForFile verwendetem java.io.File.mkdirs()
-			 	 * 
-			 	 https://stackoverflow.com/questions/12838767/use-jsch-to-put-a-file-to-the-remote-directory-and-if-the-directory-does-not-exi
-			 	 where sftp is the ChannelSftp object.
-			 	 
-			 	 String[] folders = path.split( "/" );
-for ( String folder : folders ) {
-    if ( folder.length() > 0 ) {
-        try {
-            sftp.cd( folder );
-        }
-        catch ( SftpException e ) {
-            sftp.mkdir( folder );
-            sftp.cd( folder );
-        }
-    }
-}
-			 	 */
 			 	this.mkdirs(sDirTarget); //Das sind Pfade unterhalb des Server-RootPfads
 			 	
 			 	objChannel.put(localFile, sRemoteFilePathTotal);
