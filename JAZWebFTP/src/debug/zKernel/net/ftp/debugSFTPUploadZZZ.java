@@ -9,6 +9,8 @@ package debug.zKernel.net.ftp;
 import java.io.File;
 import java.io.IOException;
 
+import com.jcraft.jsch.JSchException;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
@@ -122,6 +124,8 @@ TargetFile=testpage.html
 			
 			} catch (ExceptionZZZ ez) {
 					System.out.println(ez.getDetailAllLast());
+			} catch (JSchException jsche) {
+				System.out.println(jsche.getMessage());
 			}
 //			} catch (IOException e) {					
 //				e.printStackTrace();

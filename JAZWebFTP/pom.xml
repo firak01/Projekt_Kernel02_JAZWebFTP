@@ -36,6 +36,15 @@
     </plugins>
   </build>
   <dependencies>
+     <dependency>
+   		<groupId>com.jcraft</groupId>
+   		 <artifactId>jsch</artifactId>
+   		 <version>0.1.55</version>
+<!-- <		 <scope>provided</scope> -->
+		 <!-- Merke: compile ist default, provided wird nicht für runtime verwendet -->
+		 <scope>runtime</scope> 
+	</dependency>
+     
   	<dependency>
   		<!-- FGL 20210204: java.lang.NoClassDefFoundError wenn man dies aus einem anderem Projekt ausführt
   		     scope provided weglassen soll es richten.

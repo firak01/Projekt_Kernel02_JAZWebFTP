@@ -41,7 +41,7 @@ import basic.zKernel.KernelZZZ;
 public class KernelSFTPZZZ extends KernelUseObjectZZZ {
 	public static final String sPROTOCOL="sftp";
 		
-	 private JSch objFTPClient = new JSch();
+	 private JSch objFTPClient = null;
 	 private Session objSession = null;
 	
 	private String sServer=new String("");
@@ -90,9 +90,19 @@ public class KernelSFTPZZZ extends KernelUseObjectZZZ {
 /**
  * @return FTPClient
  */
-public JSch getClientObject(){
+public JSch getClientObject() throws ExceptionZZZ, SftpException {
 	if(this.objFTPClient==null) {
-		this.objFTPClient = new JSch();
+		//https://stackoverflow.com/questions/34413/why-am-i-getting-a-noclassdeffounderror-in-java		
+		try {
+			this.objFTPClient = new JSch();//Darum hier eine Exception abfangen, wg. des statischen Konstruktors.
+		}catch(Throwable t) {				
+			t.printStackTrace();
+			
+			String sLog = t.getMessage();			  
+			this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName()); 
+			throw ez;	
+		}
 	}
 	return this.objFTPClient;	
 }
@@ -150,6 +160,11 @@ public boolean setKnownHost() throws ExceptionZZZ{
 			sLog = "JSchException: " +je.getMessage();
 			System.out.println(ReflectCodeZZZ.getPositionCurrent() +": " + sLog );
 			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, KernelSFTPZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName(),je);
+			throw ez;
+		} catch (SftpException e) {	
+			sLog = "JSchException: " +e.getMessage();
+			System.out.println(ReflectCodeZZZ.getPositionCurrent() +": " + sLog );
+			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, KernelSFTPZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName(),e);
 			throw ez;
 		}
 	}//End main:
@@ -297,6 +312,12 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 			this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), je); 
 			throw ez;				
+		} catch (SftpException e) {
+			stemp= e.getMessage();
+			sLog = "SftpException: '" + stemp + "'";
+			this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), e); 
+			throw ez;				
 		}
 //		} catch (SocketException se) {
 //			stemp= se.getMessage();
@@ -311,6 +332,7 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 //			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), ioe); 
 //			throw ez;	
 //		}
+ 
 	}//end main
 	return bReturn;
 }//end method 'ConnctionMake_"
@@ -321,8 +343,9 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
  * @param objFile, the sourceFile-Object
  * @param sFileTarget, if null or the empty String, the filename of the sourceFile-Object will be used
  * @return boolean, indicating the success of the method
+ * @throws JSchException 
  */
-public boolean uploadFile(File objFile, String sFilePathTarget, String sFileNameTarget) throws ExceptionZZZ{
+public boolean uploadFile(File objFile, String sFilePathTarget, String sFileNameTarget) throws ExceptionZZZ, JSchException{
 	return uploadFile_(objFile, sFilePathTarget, sFileNameTarget);	
 }
 
@@ -331,11 +354,12 @@ public boolean uploadFile(File objFile, String sFilePathTarget, String sFileName
  * @param objFile, the sourceFile-Object
  * @param sFileTarget, if null or the empty String, the filename of the sourceFile-Object will be used
  * @return boolean, indicating the success of the method
+ * @throws JSchException 
  */
-public boolean uploadFile(File objFile, String sFilePathTarget) throws ExceptionZZZ{
+public boolean uploadFile(File objFile, String sFilePathTarget) throws ExceptionZZZ, JSchException{
 	return uploadFile_(objFile, sFilePathTarget, "");	
 }
-private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameTargetIn) throws ExceptionZZZ{
+private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameTargetIn) throws ExceptionZZZ, JSchException{
 	boolean bReturn = false;
 		main:{
 			String stemp; String sLog;
@@ -403,12 +427,12 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			 	objChannel.put(localFile, sRemoteFilePathTotal);
 			    objChannel.exit();
 			    bReturn = true;    						   
-			} catch (JSchException je) {
-				stemp = je.getMessage();
-				sLog = "JSchException: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
-				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), je); 
-				throw ez;					
+//			} catch (JSchException je) {
+//				stemp = je.getMessage();
+//				sLog = "JSchException: '" + stemp + "'";
+//				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+//				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), je); 
+//				throw ez;					
 			} catch (SftpException sftpe) {
 				stemp = sftpe.getMessage();
 				sLog = "SftpException: '" + stemp + "'";
