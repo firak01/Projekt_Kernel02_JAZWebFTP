@@ -46,7 +46,7 @@ public class debugFTPSUploadZZZ {
 			
 			//4. Konfiguration auslesen
 			//Hier werden Informationen �ber die IP-Adressdatei ausgelesen, etc.
-			FileIniZZZ objFileIniIPConfig = objKernel.getFileModuleIniByAlias("FTPDebug");
+			FileIniZZZ objFileIniIPConfig = objKernel.getFileConfigModuleIni("FTPDebug");
    								
 			IKernelConfigSectionEntryZZZ entryServer = objKernel.getParameterByProgramAlias(objFileIniIPConfig, "FTPModul","Server");
 			String sServer = entryServer.getValue();
