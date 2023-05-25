@@ -106,7 +106,7 @@ TargetFile=testpage.html
 				//Dateiname bleibt gleich, also nicht extra auslesen.
 				//IKernelConfigSectionEntryZZZ entryFileTarget = objKernel.getParameterByProgramAlias(objFileIniIPConfig, "FTPModul","TargetFile");
 				//String sFileTarget = entryFileTarget.getValue();				
-				String sFileTargetTotal = FileEasyZZZ.joinFilePathName(sDirTarget, sFile, objFTP.getDirectorySeparatorRemote(), true); //Merke: Bei dem Remote-Pfad soll sichergestellt sein, dass kein src-Root Ordner voranagestellt ist.
+				String sFileTargetTotal = FileEasyZZZ.joinFilePathNameForRemote(sDirTarget, sFile, objFTP.getDirectorySeparatorRemote()); //Merke: Bei dem Remote-Pfad soll sichergestellt sein, dass kein src-Root Ordner voranagestellt ist.
 				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": FileTargetName: "+sFileTargetTotal);
 																
 				btemp = objFTP.uploadFile(objFile, sDirTarget);

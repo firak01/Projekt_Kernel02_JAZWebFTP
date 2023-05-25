@@ -419,8 +419,8 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			 	//In der Konfiguration ggfs. sicherstellen, das ein führender "/" vorangestellt ist.
 			 	//ABER: Der lokale Root-Eintrag (z.B. in Eclipse 'src' darf nicht vorangestellt werden, darum 'remote'=true.
 			 	String sRemoteRoot = this.getRootPath();
-			 	String sRemoteDirPathTotal = FileEasyZZZ.joinFilePathName(sRemoteRoot, sDirTarget, this.getDirectorySeparatorRemote(), true);
-			 	String sRemoteFilePathTotal = FileEasyZZZ.joinFilePathName(sRemoteDirPathTotal, sFileNameTarget, this.getDirectorySeparatorRemote(), true);
+			 	String sRemoteDirPathTotal = FileEasyZZZ.joinFilePathNameForRemote(sRemoteRoot, sDirTarget, this.getDirectorySeparatorRemote());
+			 	String sRemoteFilePathTotal = FileEasyZZZ.joinFilePathNameForRemote(sRemoteDirPathTotal, sFileNameTarget, this.getDirectorySeparatorRemote());
 			 	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": sRemoteFilePathTotal='"+sRemoteFilePathTotal+"'");
 			 	this.mkdirs(sDirTarget); //Das sind Pfade unterhalb des Server-RootPfads
 			 	
