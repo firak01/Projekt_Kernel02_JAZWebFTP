@@ -424,6 +424,7 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			 	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": sRemoteFilePathTotal='"+sRemoteFilePathTotal+"'");
 			 	this.mkdirs(sDirTarget); //Das sind Pfade unterhalb des Server-RootPfads
 			 	
+			 	//wichtig: Der Remote-Pfad auf dem Server muss mit Slash / anfangen!!!
 			 	objChannel.put(localFile, sRemoteFilePathTotal);
 			    objChannel.exit();
 			    bReturn = true;    						   
