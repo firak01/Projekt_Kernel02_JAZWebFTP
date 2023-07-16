@@ -27,6 +27,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
+import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
 import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
@@ -50,8 +51,8 @@ public class KernelSFTPZZZ extends KernelUseObjectZZZ {
 	private String sRootPath=new String("");
 	private int iPort=22;
 	
-	private char cDirectorySeparatorLocal = StringZZZ.string2Char(FileEasyZZZ.sDIRECTORY_SEPARATOR);
-	private char cDirectorySeparatorRemote = StringZZZ.string2Char(FileEasyZZZ.sDIRECTORY_SEPARATOR_UNIX);
+	private char cDirectorySeparatorLocal = StringZZZ.string2Char(IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR);
+	private char cDirectorySeparatorRemote = StringZZZ.string2Char(IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_UNIX);
 	
 	public KernelSFTPZZZ(IKernelZZZ objKernel, IKernelLogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel);
