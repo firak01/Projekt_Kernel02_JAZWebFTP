@@ -548,7 +548,7 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			try {
 				if(StringZZZ.isEmpty(sDirectoryPath)) break main;
 				
-				if(FileEasyZZZ.isPathAbsolut(sDirectoryPath)) {
+				if(FileEasyZZZ.isPathAbsolute(sDirectoryPath)) {
 					sLog = "Pfad ist absolut. Solch ein Pfad kann auf dem FTP Server nicht erstellt werden '" + sDirectoryPath + "'.";
 					System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": "+sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
