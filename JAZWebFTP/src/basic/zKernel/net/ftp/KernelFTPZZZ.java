@@ -14,13 +14,13 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ObjectZZZ;
+import basic.zBasic.AbstractObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
-import basic.zKernel.KernelUseObjectZZZ;
+import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 
 /**
@@ -28,7 +28,7 @@ import basic.zKernel.KernelZZZ;
  * This class is used as a wrapper arround the org.apache.commons.net.ftpclient - class
  * Therefore the jakarta.commons.net and the jakarta.orp - API must be in the classpath
  */
-public class KernelFTPZZZ extends KernelUseObjectZZZ {
+public class KernelFTPZZZ extends AbstractKernelUseObjectZZZ {
 	private FTPClient objFTPClient=null;
 	private String sServer=new String("");
 	private String sUser=new String("");

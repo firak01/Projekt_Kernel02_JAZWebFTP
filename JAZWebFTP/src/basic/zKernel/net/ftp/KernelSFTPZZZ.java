@@ -22,7 +22,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ObjectZZZ;
+import basic.zBasic.AbstractObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -31,7 +31,7 @@ import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
 import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
-import basic.zKernel.KernelUseObjectZZZ;
+import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 
 /**
@@ -39,7 +39,7 @@ import basic.zKernel.KernelZZZ;
  * This class is used as a wrapper arround the org.apache.commons.net.ftpclient - class
  * Therefore the jakarta.commons.net and the jakarta.orp - API must be in the classpath
  */
-public class KernelSFTPZZZ extends KernelUseObjectZZZ {
+public class KernelSFTPZZZ extends AbstractKernelUseObjectZZZ {
 	public static final String sPROTOCOL="sftp";
 		
 	 private JSch objFTPClient = null;
