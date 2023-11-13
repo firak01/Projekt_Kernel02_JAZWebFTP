@@ -22,7 +22,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.AbstractObjectZZZ;
+import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
