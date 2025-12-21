@@ -22,6 +22,7 @@ import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
+import custom.zKernel.LogZZZ;
 
 /**
  * @author Lindhauer
@@ -39,7 +40,12 @@ public class KernelFTPZZZ extends AbstractKernelUseObjectZZZ {
 		KernelFTPnew_(objLog, saFlagControl);
 	}
 	
-	private boolean KernelFTPnew_(IKernelLogZZZ objLog, String[] saFlagUsed) throws ExceptionZZZ {
+	public KernelFTPZZZ(IKernelZZZ objKernel, String[] saFlagControl) throws ExceptionZZZ {
+		super(objKernel);
+		KernelFTPnew_(null, saFlagControl);
+	}
+	
+	private boolean KernelFTPnew_(IKernelLogZZZ objLogIn, String[] saFlagUsed) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 		String stemp; boolean btemp; String sLog;
@@ -61,7 +67,11 @@ public class KernelFTPZZZ extends AbstractKernelUseObjectZZZ {
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 
-			}	
+			}
+			
+			if(objLogIn!=null) {
+				this.setLogObject((LogZZZ) objLogIn);
+			}
 		}
 	}//end main:
 	return bReturn;

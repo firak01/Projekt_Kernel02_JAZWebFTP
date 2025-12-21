@@ -31,5 +31,10 @@ public class FTPZZZ extends KernelFTPZZZ {
 	public FTPZZZ(IKernelZZZ objKernel, IKernelLogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel, objLog, saFlagControl);
 	}
+	
+	public FTPZZZ(IKernelZZZ objKernel, String[] saFlagControl) throws ExceptionZZZ {
+		super(objKernel, saFlagControl);
+	}
+
  
 }//end class FTPZZZ
