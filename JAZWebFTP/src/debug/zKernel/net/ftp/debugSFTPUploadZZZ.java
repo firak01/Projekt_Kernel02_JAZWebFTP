@@ -18,10 +18,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zKernel.IKernelConfigSectionEntryZZZ;
-import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelSingletonZZZ;
 import basic.zKernel.KernelZZZ;
+import custom.zKernel.ILogZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 import custom.zKernel.net.ftp.FTPSZZZ;
 import custom.zKernel.net.ftp.FTPZZZ;
@@ -46,7 +46,7 @@ public class debugSFTPUploadZZZ {
 			IKernelZZZ objKernel = KernelSingletonZZZ.getInstance("FGL", "01", "", "ZKernelConfigFTP_test.ini",(String[]) null);
 			
 			//2. Protokoll
-			IKernelLogZZZ objLog = objKernel.getLogObject();
+			ILogZZZ objLog = objKernel.getLogObject();
 
 			//3. FTPZZZ-Objekt, als Wrapper um jakarta.commons.net.ftpclient
 			SFTPZZZ objFTP = new SFTPZZZ(objKernel, objLog, (String[]) null);

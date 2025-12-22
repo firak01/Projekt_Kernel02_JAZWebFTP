@@ -9,9 +9,9 @@ package custom.zKernel.net.ftp;
 import org.apache.commons.net.ftp.FTPClient;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.net.ftp.KernelFTPZZZ;
+import custom.zKernel.ILogZZZ;
 
 
 /**
@@ -28,7 +28,7 @@ public class FTPZZZ extends KernelFTPZZZ {
 	 * @param saFlagControl
 	 * @throws ExceptionZZZ
 	 */
-	public FTPZZZ(IKernelZZZ objKernel, IKernelLogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
+	public FTPZZZ(IKernelZZZ objKernel, ILogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel, objLog, saFlagControl);
 	}
 	

@@ -19,10 +19,10 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
+import custom.zKernel.ILogZZZ;
 
 /**
  * @author Lindhauer
@@ -37,12 +37,12 @@ public class KernelFTPSZZZ extends AbstractKernelUseObjectZZZ {
 	private String sUser=new String("");
 	private String sPassword=new String("");
 	
-	public KernelFTPSZZZ(IKernelZZZ objKernel, IKernelLogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
+	public KernelFTPSZZZ(IKernelZZZ objKernel, ILogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel);
 		KernelFTPnew_(objLog, saFlagControl);
 	}
 	
-	private boolean KernelFTPnew_(IKernelLogZZZ objLog, String[] saFlagUsed) throws ExceptionZZZ {
+	private boolean KernelFTPnew_(ILogZZZ objLog, String[] saFlagUsed) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 		String stemp; boolean btemp; String sLog;

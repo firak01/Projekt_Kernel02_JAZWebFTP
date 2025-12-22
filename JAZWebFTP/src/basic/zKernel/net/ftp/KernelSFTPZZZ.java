@@ -29,10 +29,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
-import basic.zKernel.IKernelLogZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
+import custom.zKernel.ILogZZZ;
 import custom.zKernel.LogZZZ;
 
 /**
@@ -55,7 +55,7 @@ public class KernelSFTPZZZ extends AbstractKernelUseObjectZZZ {
 	private char cDirectorySeparatorLocal = StringZZZ.string2Char(IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR);
 	private char cDirectorySeparatorRemote = StringZZZ.string2Char(IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_UNIX);
 	
-	public KernelSFTPZZZ(IKernelZZZ objKernel, IKernelLogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
+	public KernelSFTPZZZ(IKernelZZZ objKernel, ILogZZZ objLog, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel);
 		KernelFTPnew_(objLog, saFlagControl);
 	}
@@ -65,7 +65,7 @@ public class KernelSFTPZZZ extends AbstractKernelUseObjectZZZ {
 		KernelFTPnew_(objLog, saFlagControl);
 	}
 	
-	private boolean KernelFTPnew_(IKernelLogZZZ objLogIn, String[] saFlagUsed) throws ExceptionZZZ {
+	private boolean KernelFTPnew_(ILogZZZ objLogIn, String[] saFlagUsed) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 		String stemp; boolean btemp; String sLog;
