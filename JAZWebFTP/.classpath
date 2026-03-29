@@ -22,7 +22,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/JAZKernel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ZKernelFileCollection"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JAZKernelEngine"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
