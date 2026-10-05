@@ -22,7 +22,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 import custom.zKernel.ILogZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /**
  * @author Lindhauer
@@ -70,7 +70,7 @@ public class KernelFTPZZZ extends AbstractKernelUseObjectZZZ {
 			}
 			
 			if(objLogIn!=null) {
-				this.setLogObject((LogZZZ) objLogIn);
+				this.setLogObject((KernelLogZZZ) objLogIn);
 			}
 		}
 	}//end main:
