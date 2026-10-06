@@ -78,7 +78,7 @@ public class KernelSFTPZZZ extends AbstractKernelUseObjectZZZ {
 				  btemp = setFlag(stemp, true);
 				  if(btemp==false){
 					  sLog = "the flag '" + stemp + "' is not available.";
-					  this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					  this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 					  throw ez;		 
 				  }
@@ -110,7 +110,7 @@ public JSch getClientObject() throws ExceptionZZZ, SftpException {
 			t.printStackTrace();
 			
 			String sLog = t.getMessage();			  
-			this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+			this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 			throw ez;	
 		}
@@ -253,7 +253,7 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 			if(objFTPClient==null){				
 				stemp = "FTPClientObject'";				
 				sLog = "Missing: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;					   
 			}
@@ -262,13 +262,13 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 			if(sServer==null){
 				stemp = "Servername";
 				sLog = "Missing: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}else if(sServer.equals("")){
 				stemp = "Servername";
 				sLog = "Empty: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_EMPTY, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}
@@ -276,13 +276,13 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 			if(sUser==null){
 				stemp = "User";
 				sLog = "Missing: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}else if(sUser.equals("")) {
 				stemp = "User";
 				sLog = "Empty: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;				
 			}
@@ -290,13 +290,13 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 			if(sPassword==null){
 				stemp = "Password";
 				sLog = "Missing: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}else if(sPassword.equals("")) {
 				stemp = "Password";
 				sLog = "Empty: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}
@@ -320,13 +320,13 @@ private boolean makeConnection_(String sServer, String sUser, String sPassword, 
 		} catch (JSchException je) {
 			stemp= je.getMessage();
 			sLog = "JScheException: '" + stemp + "'";
-			this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+			this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), je); 
 			throw ez;				
 		} catch (SftpException e) {
 			stemp= e.getMessage();
 			sLog = "SftpException: '" + stemp + "'";
-			this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+			this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 			ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), e); 
 			throw ez;				
 		}
@@ -379,13 +379,13 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			if(objFile==null){
 				stemp = "File-Object'";
 				sLog = "Missing: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}else if(!FileEasyZZZ.exists(objFile)){
 				stemp = objFile.getAbsolutePath();
 				sLog="File-Object --> File does not exist: '" + stemp + "'";				
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}
@@ -400,7 +400,7 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			if(FileEasyZZZ.isDirectory(objFile)) {
 				stemp = objFile.getAbsolutePath();
 				sLog="File-Object --> File is a directory: '" + stemp + "'";				
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}
@@ -416,7 +416,7 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			if(objSession==null){
 				stemp = "SessionObject'";				
 				sLog = "Missing: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;	
 			}
@@ -448,7 +448,7 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 			} catch (SftpException sftpe) {
 				stemp = sftpe.getMessage();
 				sLog = "SftpException: '" + stemp + "'";
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, this,  ReflectCodeZZZ.getMethodCurrentName(), sftpe); 
 				throw ez;	
 			}
@@ -569,7 +569,7 @@ private boolean uploadFile_(File objFile, String sDirTargetIn, String sFileNameT
 				if(objSession==null){
 					stemp = "SessionObject'";				
 					sLog = "Missing: '" + stemp + "'";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 					throw ez;	
 				}
